@@ -1,32 +1,29 @@
 package id.afif.binarchallenge5.Activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
-import androidx.recyclerview.widget.LinearLayoutManager
 import id.afif.binarchallenge5.API.TMDBClient
 import id.afif.binarchallenge5.API.TMDBService
 import id.afif.binarchallenge5.Adapter.MoviesAdapter
-import id.afif.binarchallenge5.Model.Movies
-import id.afif.binarchallenge5.Model.Result
+import id.afif.binarchallenge5.Helper.viewModelsFactory
+import id.afif.binarchallenge5.viewmodel.MoviesViewModel
 import id.afif.binarchallenge5.R
 import id.afif.binarchallenge5.databinding.FragmentHomeBinding
-import retrofit2.Call
-import retrofit2.Callback
-import retrofit2.Response
 
 
 class HomeFragment : Fragment() {
     private var _binding : FragmentHomeBinding? = null
     private val binding get() = _binding!!
     private lateinit var moviesAdapter : MoviesAdapter
+
+    private val apiTMDBService : TMDBService by lazy { TMDBClient.instance }
+    private val viewModel : MoviesViewModel by viewModelsFactory { MoviesViewModel(apiTMDBService) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,6 +41,7 @@ class HomeFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initRecycler()
+        viewModel.getAllMovies()
         getDataFromNetwork()
     }
 
@@ -60,27 +58,10 @@ class HomeFragment : Fragment() {
     }
 
     private fun getDataFromNetwork(){
-        val apiTMDBService = TMDBClient.instance
-        apiTMDBService.getAllMovie("c548b9c05e09ed4c22de8c8eed87a602").enqueue(object : Callback<Movies>{
-            override fun onResponse(call: Call<Movies>, response: Response<Movies>) {
-                if(response.isSuccessful){
-                    if(response.body()!=null){
-                        val responseBody = response.body()
-                        response.body().let {
-                            moviesAdapter.updateData(responseBody!!.results)
-                        }
-                        binding.pbLoading.isVisible = false
-                    }
-                }
-            }
-
-            override fun onFailure(call: Call<Movies>, t: Throwable) {
-                Log.e("error", t.message.toString())
-                binding.pbLoading.isVisible = false
-            }
-
-        })
+        viewModel.dataMovies.observe(viewLifecycleOwner){
+            moviesAdapter.updateData(it.results)
+            binding.pbLoading.isVisible = false
+        }
     }
-
 
 }

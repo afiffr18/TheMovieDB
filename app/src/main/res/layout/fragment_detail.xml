@@ -19,46 +19,47 @@
 
     <TextView
         android:id="@+id/tv_movie_detail_title"
-        android:text="The Batman"
-        android:textSize="20sp"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:textStyle="bold"
         android:ellipsize="end"
+        android:text="The Batman"
         android:maxLines="2"
-        android:minLines="0"
-        app:layout_constraintTop_toTopOf="@id/iv_movies_detail"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@id/tv_release_date"
         app:layout_constraintStart_toEndOf="@id/iv_movies_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toTopOf="@id/iv_movies_detail" />
 
     <TextView
         android:id="@+id/tv_release_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+
         android:text="(2021)"
-        android:layout_marginStart="5dp"
-        android:textSize="20sp"
-        app:layout_constraintStart_toEndOf="@id/tv_movie_detail_title"
-        app:layout_constraintTop_toTopOf="@id/tv_movie_detail_title"
-        app:layout_constraintBottom_toBottomOf="@id/tv_movie_detail_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/tv_movie_detail_title" />
+
     <TextView
         android:id="@+id/tv_release"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:text="03/02/2022"
         android:textSize="11sp"
-        app:layout_constraintTop_toBottomOf="@id/tv_movie_detail_title"
         app:layout_constraintStart_toStartOf="@id/tv_movie_detail_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toBottomOf="@id/tv_movie_detail_title" />
+
     <TextView
         android:id="@+id/tv_genre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="5dp"
         android:text="*Crime,Mystery,Thriller "
         android:textSize="11sp"
-        android:layout_marginLeft="3dp"
-        app:layout_constraintTop_toTopOf="@id/tv_release"
         app:layout_constraintStart_toEndOf="@id/tv_release"
         app:layout_constraintTop_toBottomOf="@id/tv_release"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toTopOf="@id/tv_release" />
     <TextView
         android:id="@+id/tv_runtime"
         android:text="2h 56m  "
@@ -72,7 +73,7 @@
         android:id="@+id/progress_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginTop="10dp"
         app:indicatorColor="@color/green"
         android:background="@drawable/circle_shape"
         android:progress="80"
@@ -108,18 +109,19 @@
         app:layout_constraintTop_toBottomOf="@id/progress_detail"
         app:layout_constraintStart_toStartOf="@id/progress_detail"
         android:layout_marginTop="5dp"
+        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
+
     <ImageView
         android:id="@+id/btn_list"
-        android:padding="5dp"
-        android:src="@drawable/ic_baseline_format_list_bulleted_24"
-        android:background="@drawable/circle_shape"
-        app:layout_constraintTop_toBottomOf="@id/tv_tagline"
-        app:layout_constraintStart_toStartOf="@id/tv_tagline"
-        android:layout_marginTop="10dp"
         android:layout_width="30dp"
         android:layout_height="30dp"
+        android:background="@drawable/circle_shape"
+        android:padding="5dp"
+        android:src="@drawable/ic_baseline_format_list_bulleted_24"
+        app:layout_constraintStart_toStartOf="@id/tv_tagline"
+        app:layout_constraintTop_toBottomOf="@id/tv_tagline"
         app:tint="@color/white" />
     <ImageView
         android:id="@+id/btn_favorite"
@@ -162,12 +164,12 @@
 
     <ImageView
         android:id="@+id/btn_play"
-        app:layout_constraintTop_toBottomOf="@id/btn_list"
-        app:layout_constraintStart_toStartOf="@id/btn_list"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/ic_baseline_play_arrow_24"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:src="@drawable/ic_baseline_play_arrow_24"
+        app:layout_constraintStart_toStartOf="@id/btn_list"
+        app:layout_constraintTop_toBottomOf="@id/btn_list" />
 
     <TextView
         android:text="Play Trailer"
@@ -181,18 +183,17 @@
 
     <TextView
         android:id="@+id/overview"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:text="Overview"
         android:textStyle="bold"
-        app:layout_constraintTop_toBottomOf="@id/iv_movies_detail"
         app:layout_constraintStart_toStartOf="parent"
-        android:layout_marginTop="7dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"/>
+        app:layout_constraintTop_toBottomOf="@+id/iv_movies_detail" />
     <TextView
         android:id="@+id/tv_overview"
-        android:textSize="20sp"
+        android:textSize="18sp"
         android:text="In his second year of fighting crime,Batman uncovers corruption in Gotham City that connects to his own family while facing a serial killer known as the Riddler."
-        android:maxLines="4"
         app:layout_constraintTop_toBottomOf="@id/overview"
         app:layout_constraintStart_toStartOf="@id/overview"
         android:layout_width="wrap_content"
