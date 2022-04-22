@@ -10,8 +10,8 @@ import retrofit2.http.Query
 
 interface TMDBService {
     @GET("movie/popular")
-    fun getAllMovie(@Query("api_key") a : String) : Call<Movies>
+    fun getAllMovie(@Query("api_key") key : String) : Call<Movies>
 
-    @GET("/movie/{movie_id}")
-    fun getMovieDetail(@Path("movie_id") movieId : Int) : Call<MovieDetail>
+    @GET("movie/{movie_id}")
+    fun getMovieDetail(@Path("movie_id") movieId : Int,@Query("api_key") key : String) : Call<MovieDetail>
 }

@@ -1,11 +1,13 @@
 package id.afif.binarchallenge5.Adapter
 
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.ProgressBar
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.AsyncListDiffer
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -15,7 +17,7 @@ import com.google.android.material.progressindicator.CircularProgressIndicator
 import id.afif.binarchallenge5.Model.Result
 import id.afif.binarchallenge5.R
 
-class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
+class MoviesAdapter(private val onClickListener : (id: Int) -> Unit) : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
 
     private val difCallback = object : DiffUtil.ItemCallback<Result>(){
         override fun areItemsTheSame(oldItem: Result, newItem: Result): Boolean {
@@ -48,6 +50,7 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
         val tvDate = view.findViewById<TextView>(R.id.tv_movie_date)
         val rating = view.findViewById<CircularProgressIndicator>(R.id.progress_circular)
         val persen = view.findViewById<TextView>(R.id.tv_progress_percentage)
+        val constLayout = view.findViewById<ConstraintLayout>(R.id.constraint1)
 
         val bgOptions = RequestOptions().placeholder(R.drawable.ic_launcher_background)
         fun bind(result: Result){
@@ -58,6 +61,9 @@ class MoviesAdapter : RecyclerView.Adapter<MoviesAdapter.MoviesViewHolder>() {
             rating.progress = (result.voteAverage*10).toInt()
             persen.text = "${(result.voteAverage*10).toInt()}%"
 
+            constLayout.setOnClickListener {
+                onClickListener.invoke(result.id)
+            }
         }
     }
 }

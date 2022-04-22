@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import id.afif.binarchallenge5.API.TMDBClient
@@ -46,7 +47,11 @@ class HomeFragment : Fragment() {
     }
 
     private fun initRecycler(){
-        moviesAdapter = MoviesAdapter()
+        moviesAdapter = MoviesAdapter(){ id: Int ->
+            val bundle = Bundle()
+            bundle.putInt("id",id)
+            findNavController().navigate(R.id.action_homeFragment_to_detailFragment,bundle)
+        }
         binding.apply {
             rvMovies.adapter = moviesAdapter
             rvMovies.layoutManager = GridLayoutManager(requireContext(),2)
