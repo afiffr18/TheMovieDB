@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import id.afif.binarchallenge5.API.TMDBClient
 import id.afif.binarchallenge5.Model.MovieDetail
@@ -49,12 +50,14 @@ class DetailFragment : Fragment() {
                         response.body()?.let {
                             addData(it)
                         }
+                        binding.pbLoading.isVisible = false
                     }
                 }
             }
 
             override fun onFailure(call: Call<MovieDetail>, t: Throwable) {
-                TODO("Not yet implemented")
+                binding.pbLoading.isVisible = false
+                Log.e("error", t.message.toString())
             }
 
         })
@@ -72,7 +75,7 @@ class DetailFragment : Fragment() {
         binding.tvPercentageDetail.text = "${movieDetail.voteAverage*10}%"
         binding.tvTagline.text = movieDetail.tagline
         binding.tvOverview.text = movieDetail.overview
-        
+
     }
 
 

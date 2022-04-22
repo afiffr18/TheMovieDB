@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.view.isVisible
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -68,12 +69,14 @@ class HomeFragment : Fragment() {
                         response.body().let {
                             moviesAdapter.updateData(responseBody!!.results)
                         }
+                        binding.pbLoading.isVisible = false
                     }
                 }
             }
 
             override fun onFailure(call: Call<Movies>, t: Throwable) {
-                TODO("Not yet implemented")
+                Log.e("error", t.message.toString())
+                binding.pbLoading.isVisible = false
             }
 
         })
