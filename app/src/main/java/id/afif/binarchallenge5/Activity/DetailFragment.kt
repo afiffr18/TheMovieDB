@@ -27,7 +27,7 @@ class DetailFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val apiTMDBService : TMDBService by lazy { TMDBClient.instance }
-    private val moviesViewModel : MoviesViewModel by viewModelsFactory { MoviesViewModel(apiTMDBService) }
+    private val moviesViewModel : MoviesViewModel by viewModelsFactory { MoviesViewModel(apiTMDBService,requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

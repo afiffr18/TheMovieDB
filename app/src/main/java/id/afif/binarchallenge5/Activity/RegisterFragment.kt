@@ -1,0 +1,100 @@
+package id.afif.binarchallenge5.Activity
+
+import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.Toast
+import androidx.navigation.fragment.findNavController
+import id.afif.binarchallenge5.Helper.UserRepo
+import id.afif.binarchallenge5.Helper.viewModelsFactory
+import id.afif.binarchallenge5.R
+import id.afif.binarchallenge5.database.User
+import id.afif.binarchallenge5.database.UserDatabase
+import id.afif.binarchallenge5.databinding.FragmentRegisterBinding
+import id.afif.binarchallenge5.viewmodel.MoviesViewModel
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+
+
+class RegisterFragment : Fragment() {
+    private var _binding : FragmentRegisterBinding? = null
+    private val binding get() = _binding!!
+
+    private var mDb : UserDatabase?=null
+
+    private val moviesViewModel : MoviesViewModel by viewModelsFactory { MoviesViewModel(null,requireContext()) }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        // Inflate the layout for this fragment
+        _binding = FragmentRegisterBinding.inflate(inflater,container,false)
+        return binding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        mDb = UserDatabase.getInstance(requireContext())
+        addData()
+    }
+
+
+    private fun addData(){
+        binding.btnRegister.setOnClickListener {
+            val username = binding.etUsername.text.toString()
+            val email = binding.etEmail.text.toString()
+            val password = binding.etPassword.text.toString()
+            if(isAllFieldChecked(username,email,password)){
+                moviesViewModel.saveToDb(username, email, password)
+                findNavController().popBackStack()
+            }else{
+                if(isPasswordTheSame()){
+                    Toast.makeText(requireContext(),"Password Tidak Sama!!", Toast.LENGTH_SHORT).show()
+                    binding.etConfirmPassword.text.clear()
+                }else{
+                    Toast.makeText(requireContext(),"Data harus Diisi!!", Toast.LENGTH_SHORT).show()
+                }
+
+            }
+        }
+    }
+
+
+
+
+    private fun isAllFieldChecked(username : String,email:String,password: String) : Boolean{
+        binding.apply {
+            if(username.isBlank() || username == " "){
+                etUsername.error = "Username harus diisi"
+                return false
+            }
+            if (email.isBlank()||email ==" " ||!email.contains("@")||!email.contains("mail.")){
+                etEmail.error = "Email tidak valid"
+                return false
+            }
+            if(password.isBlank()||password==""){
+                etPassword.error = "Password Harus Diisi"
+                return false
+            }
+        }
+        return true
+    }
+
+    private fun isPasswordTheSame() : Boolean{
+        binding.apply {
+            return etPassword.text.toString() != etConfirmPassword.text.toString()
+        }
+    }
+
+
+
+}

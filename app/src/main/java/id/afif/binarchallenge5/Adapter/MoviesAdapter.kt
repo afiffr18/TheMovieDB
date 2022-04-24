@@ -1,11 +1,10 @@
 package id.afif.binarchallenge5.Adapter
 
-import android.content.DialogInterface
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.AsyncListDiffer
@@ -25,7 +24,7 @@ class MoviesAdapter(private val onClickListener : (id: Int) -> Unit) : RecyclerV
         }
 
         override fun areContentsTheSame(oldItem: Result, newItem: Result): Boolean {
-            return oldItem.hashCode() == newItem.hashCode()
+            return oldItem == newItem
         }
     }
 
@@ -59,7 +58,7 @@ class MoviesAdapter(private val onClickListener : (id: Int) -> Unit) : RecyclerV
             Glide.with(itemView.context).load("https://www.themoviedb.org/t/p/w220_and_h330_face/${result.posterPath}")
                 .apply(bgOptions).into(ivPoster)
             rating.progress = (result.voteAverage*10).toInt()
-            persen.text = "${(result.voteAverage*10).toInt()}%"
+            persen.text = (result.voteAverage * 10).toInt().toString().plus("%")
 
             constLayout.setOnClickListener {
                 onClickListener.invoke(result.id)

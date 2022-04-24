@@ -4,11 +4,14 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/afiff/AndroidStudioProjects/BinarChallenge5/app/src/main/res/drawable/circle_shape.xml" value="0.125" />
+        <entry key="..\:/Users/afiff/AndroidStudioProjects/BinarChallenge5/app/src/main/res/drawable/edit_text_custom.xml" value="0.1555" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/BinarChallenge5/app/src/main/res/layout-v26/fragment_detail.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/BinarChallenge5/app/src/main/res/layout/activity_main.xml" value="0.20416666666666666" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/BinarChallenge5/app/src/main/res/layout/card_movie.xml" value="0.33" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/BinarChallenge5/app/src/main/res/layout/fragment_detail.xml" value="0.33" />
         <entry key="..\:/Users/afiff/AndroidStudioProjects/BinarChallenge5/app/src/main/res/layout/fragment_home.xml" value="0.33" />
+        <entry key="..\:/Users/afiff/AndroidStudioProjects/BinarChallenge5/app/src/main/res/layout/fragment_login.xml" value="0.1675929884566054" />
+        <entry key="..\:/Users/afiff/AndroidStudioProjects/BinarChallenge5/app/src/main/res/layout/fragment_register.xml" value="0.25" />
       </map>
     </option>
   </component>
