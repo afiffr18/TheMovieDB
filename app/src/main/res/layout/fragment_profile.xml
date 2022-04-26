@@ -60,29 +60,32 @@
        app:layout_constraintEnd_toEndOf="parent"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"/>
+
    <EditText
        android:id="@+id/et_alamat"
-       android:hint="Alamat"
-       android:layout_marginStart="50dp"
-       android:layout_marginEnd="50dp"
-       android:layout_marginTop="10dp"
-       android:paddingStart="10dp"
-       android:background="@drawable/edit_text_custom"
-       app:layout_constraintTop_toBottomOf="@id/et_tanggal"
-       app:layout_constraintStart_toStartOf="parent"
-       app:layout_constraintEnd_toEndOf="parent"
        android:layout_width="match_parent"
-       android:layout_height="wrap_content"/>
+       android:layout_height="wrap_content"
+       android:layout_marginStart="50dp"
+       android:layout_marginTop="10dp"
+       android:layout_marginEnd="50dp"
+       android:background="@drawable/edit_text_custom"
+       android:hint="Alamat"
+       android:paddingStart="10dp"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toBottomOf="@id/et_tanggal" />
    <Button
        android:id="@+id/btn_update"
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintEnd_toEndOf="parent"
        android:text="Update Profile"
+       android:backgroundTint="@color/light_blue"
        app:layout_constraintBottom_toTopOf="@id/btn_logout"
        android:layout_width="match_parent"
        android:layout_height="wrap_content"/>
    <Button
        android:id="@+id/btn_logout"
+       android:backgroundTint="@color/cardview_dark_background"
        app:layout_constraintStart_toStartOf="parent"
        app:layout_constraintEnd_toEndOf="parent"
        android:text="Logout"

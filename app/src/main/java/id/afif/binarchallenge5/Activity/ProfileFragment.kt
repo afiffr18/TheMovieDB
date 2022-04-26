@@ -1,5 +1,6 @@
 package id.afif.binarchallenge5.Activity
 
+import android.graphics.Color
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
@@ -60,12 +61,13 @@ class ProfileFragment : Fragment() {
             binding.etEmail.setText(it.email)
             binding.etFullname.setText(it.fullname)
             binding.etTanggal.setText(it.tanggal)
-            binding.etAlamat.setText(it.tanggal)
+            binding.etAlamat.setText(it.alamat)
         }
     }
 
     private fun updateData(){
         binding.btnUpdate.setOnClickListener{
+            binding.etUsername.setBackgroundColor(Color.GRAY)
             val email = binding.etEmail.text.toString()
             val fullname = binding.etFullname.text.toString()
             val tanggal = binding.etTanggal.text.toString()
