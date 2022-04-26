@@ -1,7 +1,6 @@
 package id.afif.binarchallenge5.Activity
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +11,8 @@ import androidx.recyclerview.widget.GridLayoutManager
 import id.afif.binarchallenge5.API.TMDBClient
 import id.afif.binarchallenge5.API.TMDBService
 import id.afif.binarchallenge5.Adapter.MoviesAdapter
+import id.afif.binarchallenge5.Helper.SharePref
+import id.afif.binarchallenge5.Helper.UserRepo
 import id.afif.binarchallenge5.Helper.viewModelsFactory
 import id.afif.binarchallenge5.viewmodel.MoviesViewModel
 import id.afif.binarchallenge5.R
@@ -24,12 +25,13 @@ class HomeFragment : Fragment() {
     private lateinit var moviesAdapter : MoviesAdapter
 
     private val apiTMDBService : TMDBService by lazy { TMDBClient.instance }
-    private val viewModel : MoviesViewModel by viewModelsFactory { MoviesViewModel(apiTMDBService,requireContext()) }
+    private val userRepo : UserRepo by lazy { UserRepo(requireContext()) }
+    private val viewModel : MoviesViewModel by viewModelsFactory { MoviesViewModel(apiTMDBService,userRepo) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater,container,false)
         return binding.root
     }
@@ -48,7 +50,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initRecycler(){
-        moviesAdapter = MoviesAdapter(){ id: Int ->
+        moviesAdapter = MoviesAdapter{ id: Int ->
             val bundle = Bundle()
             bundle.putInt("id",id)
             findNavController().navigate(R.id.action_homeFragment_to_detailFragment,bundle)
@@ -66,11 +68,13 @@ class HomeFragment : Fragment() {
         }
     }
 
+
     private fun setUsernameLogin(){
-        viewModel.dataUser.observe(viewLifecycleOwner){
-            val userLogin = it.username
-            binding.tvUserLogin.text = userLogin
-        }
+        val sharePref = SharePref(requireContext())
+
+//        val abc = sharePref.getData()
+        binding.tvUserLogin.text = sharePref.getUsername().toString()
     }
+
 
 }

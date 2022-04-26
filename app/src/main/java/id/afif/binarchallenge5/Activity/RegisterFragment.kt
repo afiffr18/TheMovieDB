@@ -24,8 +24,8 @@ class RegisterFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var mDb : UserDatabase?=null
-
-    private val moviesViewModel : MoviesViewModel by viewModelsFactory { MoviesViewModel(null,requireContext()) }
+    private val userRepo : UserRepo by lazy { UserRepo(requireContext()) }
+    private val moviesViewModel : MoviesViewModel by viewModelsFactory { MoviesViewModel(null, userRepo) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -54,7 +54,8 @@ class RegisterFragment : Fragment() {
             val email = binding.etEmail.text.toString()
             val password = binding.etPassword.text.toString()
             if(isAllFieldChecked(username,email,password)){
-                moviesViewModel.saveToDb(username, email, password)
+                val data = User(null,username,email,password,"default","12/12/12","defulat")
+                moviesViewModel.saveToDb(data)
                 findNavController().popBackStack()
             }else{
                 if(isPasswordTheSame()){

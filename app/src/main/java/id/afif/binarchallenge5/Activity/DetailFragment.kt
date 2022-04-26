@@ -11,6 +11,7 @@ import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
 import id.afif.binarchallenge5.API.TMDBClient
 import id.afif.binarchallenge5.API.TMDBService
+import id.afif.binarchallenge5.Helper.UserRepo
 import id.afif.binarchallenge5.Helper.viewModelsFactory
 import id.afif.binarchallenge5.Model.MovieDetail
 import id.afif.binarchallenge5.R
@@ -27,7 +28,8 @@ class DetailFragment : Fragment() {
     private val binding get() = _binding!!
 
     private val apiTMDBService : TMDBService by lazy { TMDBClient.instance }
-    private val moviesViewModel : MoviesViewModel by viewModelsFactory { MoviesViewModel(apiTMDBService,requireContext()) }
+    private val userRepo : UserRepo by lazy {UserRepo(requireContext())}
+    private val moviesViewModel : MoviesViewModel by viewModelsFactory { MoviesViewModel(apiTMDBService,userRepo) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

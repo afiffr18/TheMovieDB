@@ -1,6 +1,6 @@
 package id.afif.binarchallenge5.viewmodel
 
-import android.content.Context
+
 import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
@@ -17,7 +17,7 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class MoviesViewModel(private val apiTMDBService: TMDBService?,context: Context?) : ViewModel() {
+class MoviesViewModel(private val apiTMDBService: TMDBService?,private val userRepo: UserRepo) : ViewModel() {
 
     private val _dataMovies = MutableLiveData<Movies>()
     val dataMovies : LiveData<Movies> get() = _dataMovies
@@ -28,7 +28,6 @@ class MoviesViewModel(private val apiTMDBService: TMDBService?,context: Context?
     private val _dataUser = MutableLiveData<User>()
     val dataUser : LiveData<User> get() = _dataUser
 
-    private val userRepo = UserRepo(context!!)
 
     fun getAllMovies(){
         apiTMDBService!!.getAllMovie("c548b9c05e09ed4c22de8c8eed87a602").enqueue(object: Callback<Movies>{
@@ -69,20 +68,22 @@ class MoviesViewModel(private val apiTMDBService: TMDBService?,context: Context?
         })
     }
 
-   fun saveToDb(username : String, email:String, password:String){
-        val data = User(null,username,email,password,"","","")
+   fun saveToDb(user : User){
        viewModelScope.launch (Dispatchers.IO) {
-           userRepo.saveRegister(data)
+           userRepo.saveRegister(user)
        }
    }
 
    fun getDataById(username : String, password:String){
-       viewModelScope.launch(Dispatchers.IO) {
-           val result = userRepo.getDataById(username,password)
-           Log.e("Resllts isi",result.toString())
-               _dataUser.postValue(result!!)
+       viewModelScope.launch{
+          val user = userRepo.getDataById(username,password)!!
+           if(user!=null){
+               Log.e("datauser",user.toString())
+               _dataUser.postValue(user)
+           }
 
        }
+
    }
 
 

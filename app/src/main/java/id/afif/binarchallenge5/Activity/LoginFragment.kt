@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
+import id.afif.binarchallenge5.Helper.SharePref
 import id.afif.binarchallenge5.Helper.UserRepo
 import id.afif.binarchallenge5.Helper.viewModelsFactory
 import id.afif.binarchallenge5.R
@@ -25,7 +26,8 @@ class LoginFragment : Fragment() {
     private val binding get() = _binding!!
 
     private var mDb : UserDatabase? = null
-    private val moviesViewModel : MoviesViewModel by viewModelsFactory { MoviesViewModel(null,requireContext()) }
+    private val userRepo : UserRepo by lazy { UserRepo(requireContext()) }
+    private val moviesViewModel : MoviesViewModel by viewModelsFactory { MoviesViewModel(null,userRepo) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,6 +65,7 @@ class LoginFragment : Fragment() {
     private fun isCheckAccountReady(){
         val username = binding.etUsername.text.toString()
         val password = binding.etPassword.text.toString()
+        val sharePref = SharePref(requireContext())
         CoroutineScope(Dispatchers.IO).launch {
             var result = mDb?.userDao()?.getUser(username, password)
             if(result.isNullOrEmpty()){
@@ -72,8 +75,11 @@ class LoginFragment : Fragment() {
                 }
             }else{
                 CoroutineScope(Dispatchers.Main).launch {
-                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
                     moviesViewModel.getDataById(username, password)
+                    moviesViewModel.dataUser.observe(viewLifecycleOwner){
+                        sharePref.setData(it)
+                    }
+                   findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
 
                 }
 

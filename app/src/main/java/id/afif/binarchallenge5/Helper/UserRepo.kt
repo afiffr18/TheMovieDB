@@ -23,11 +23,4 @@ class UserRepo(context: Context) {
         mDb?.userDao()?.getDataById(username,password)
     }
 
-
-
-
-
-
-
-
 }
