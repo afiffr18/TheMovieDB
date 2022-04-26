@@ -23,4 +23,9 @@ class UserRepo(context: Context) {
         mDb?.userDao()?.getDataById(username,password)
     }
 
+    suspend fun updateData(user : User) = withContext(Dispatchers.IO){
+        mDb?.userDao()?.updateUser(user)
+    }
+
+
 }

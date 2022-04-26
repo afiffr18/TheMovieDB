@@ -47,6 +47,7 @@ class HomeFragment : Fragment() {
         viewModel.getAllMovies()
         getDataFromNetwork()
         setUsernameLogin()
+        profileClicked()
     }
 
     private fun initRecycler(){
@@ -71,9 +72,14 @@ class HomeFragment : Fragment() {
 
     private fun setUsernameLogin(){
         val sharePref = SharePref(requireContext())
+        val nama = sharePref.getUsername()
+        binding.tvUserLogin.text = "welcome : $nama"
+    }
 
-//        val abc = sharePref.getData()
-        binding.tvUserLogin.text = sharePref.getUsername().toString()
+    private fun profileClicked(){
+        binding.btnProfile.setOnClickListener {
+            findNavController().navigate(R.id.action_homeFragment_to_profileFragment)
+        }
     }
 
 

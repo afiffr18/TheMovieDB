@@ -11,16 +11,17 @@
         android:id="@+id/tv_user_login"
         android:text="Welcome : username"
         android:textStyle="bold"
+        android:textColor="@color/light_blue"
         android:textSize="13sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"/>
 
-    <TextView
-        android:id="@+id/tv_profile"
+    <ImageView
+        android:id="@+id/btn_profile"
         android:textSize="13sp"
-        android:text="Profile"
+        android:src="@drawable/ic_baseline_person_24"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="wrap_content"

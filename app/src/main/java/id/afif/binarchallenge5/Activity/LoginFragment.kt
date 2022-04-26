@@ -75,10 +75,7 @@ class LoginFragment : Fragment() {
                 }
             }else{
                 CoroutineScope(Dispatchers.Main).launch {
-                    moviesViewModel.getDataById(username, password)
-                    moviesViewModel.dataUser.observe(viewLifecycleOwner){
-                        sharePref.setData(it)
-                    }
+                    sharePref.setData(username, password)
                    findNavController().navigate(R.id.action_loginFragment_to_homeFragment)
 
                 }

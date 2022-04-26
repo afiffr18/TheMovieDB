@@ -77,14 +77,18 @@ class MoviesViewModel(private val apiTMDBService: TMDBService?,private val userR
    fun getDataById(username : String, password:String){
        viewModelScope.launch{
           val user = userRepo.getDataById(username,password)!!
-           if(user!=null){
-               Log.e("datauser",user.toString())
-               _dataUser.postValue(user)
-           }
+           _dataUser.postValue(user)
 
        }
 
    }
+
+    fun updateData(user: User){
+        viewModelScope.launch{
+            userRepo.updateData(user)!!
+        }
+
+    }
 
 
 }
